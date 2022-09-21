@@ -6,13 +6,9 @@ The source data of Covid-19 cases are https://github.com/M-Media-Group/Covid-19-
 
 ## Endpoints
 Replace the inside of {} with your preference.
-```
-GET /vaccinated                         --> 
-GET /cases                              --> 
-GET /cases?country={France}             --> 
-GET /cases?continent={Europe|Affrica}   --> 
-GET /vaccines?country={France}          --> 
+``` 
 GET /coefficient?country={France}       --> returns the calculated coefficient for a given country
+GET /coefficient?continent={Europe}       --> returns the calculated coefficient for a given continent
 ```
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .

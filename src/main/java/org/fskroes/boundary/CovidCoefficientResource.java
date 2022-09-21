@@ -3,7 +3,7 @@ package org.fskroes.boundary;
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.fskroes.client.CovidClient;
-import org.fskroes.control.CoefficientCalculator;
+import org.fskroes.control.CoefficientControl;
 import org.fskroes.model.CaseCoefficient;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
@@ -23,19 +23,19 @@ public class CovidCoefficientResource {
     CovidClient covidClient;
 
     @Inject
-    CoefficientCalculator coefficientCalculator;
+    CoefficientControl coefficientControl;
 
     @GET
     @Path("/coefficient")
-    public Uni<CaseCoefficient> getCoefficientForCountry(@QueryParam String country) {
+    public Uni<CaseCoefficient> getCoefficientForContinent(@QueryParam String continent) {
 
-        var givenCountryLiveCases = covidClient.getLiveCasesPerCountry(country);
-        var vaccineCasesForCountry = covidClient.getCasesVaccineForCountry(country);
+        var givenCountryLiveCases = covidClient.getLiveCasesForContinent(continent);
+        var vaccineCasesForCountry = covidClient.getCasesVaccineForContinent(continent);
 
-        var calculatedCoefficient = coefficientCalculator
-                .getCoefficientCalculator(givenCountryLiveCases, vaccineCasesForCountry);
         return Uni
                 .createFrom()
-                .item(calculatedCoefficient);
+                .item(coefficientControl
+                        .getCoefficient(givenCountryLiveCases, vaccineCasesForCountry)
+                );
     }
 }

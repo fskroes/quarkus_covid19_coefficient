@@ -4,18 +4,16 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.fskroes.client.CovidClient;
-import org.fskroes.model.CaseCoefficient;
 import org.fskroes.helper.StubbedResponseMapper;
+import org.fskroes.model.CaseCoefficient;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
-
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 
 
@@ -38,27 +36,27 @@ public class CovidCoefficientResourceTest {
     void getCoefficientForCountry_givenCountry_returnsCoefficientCalculationForCountry() {
 
         CaseCoefficient expectedCaseCoefficient = new CaseCoefficient();
-        expectedCaseCoefficient.setName(COUNTRY);
-        expectedCaseCoefficient.setCoefficient(0.2);
+        expectedCaseCoefficient.setCountryName(COUNTRY);
+        expectedCaseCoefficient.setCoefficient(0.0);
 
         var stubCountryResponse = stubbedResponseMapper
-                .getStubCountryResponse();
+                .getStubContinentResponse();
 
         var stubVaccineResponse = stubbedResponseMapper
-                .getStubVaccineResponse();
+                .getStubVaccineContinentResponse();
 
 
         doReturn(stubCountryResponse)
                 .when(covidClient)
-                .getLiveCasesPerCountry(any());
+                .getLiveCasesForContinent(any());
 
         doReturn(stubVaccineResponse)
                 .when(covidClient)
-                .getCasesVaccineForCountry(any());
+                .getCasesVaccineForContinent(any());
 
 
         var response = covidCoefficientResource
-                .getCoefficientForCountry(COUNTRY);
+                .getCoefficientForContinent(COUNTRY);
 
 
         assertNotNull(response);

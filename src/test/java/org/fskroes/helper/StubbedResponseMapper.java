@@ -1,43 +1,34 @@
 package org.fskroes.helper;
 
-import io.quarkus.qson.runtime.QuarkusQsonMapper;
-import org.fskroes.entity.Cases;
-import org.fskroes.entity.CasesVaccined;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fskroes.entity.Country;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.Map;
 
 import static org.fskroes.helper.StubbedCases.STUBBED_EUROPE_CASES;
-import static org.fskroes.helper.StubbedCases.STUBBED_FRANCE_CASES;
-import static org.fskroes.helper.StubbedVaccinedCases.STUBBED_VACCINED_FRANCE_CASES;
+import static org.fskroes.helper.StubbedVaccinedCases.STUBBED_VACCINED_CONTINENT_CASES;
 
 @ApplicationScoped
 public class StubbedResponseMapper {
 
     @Inject
-    QuarkusQsonMapper mapper;
+    ObjectMapper jacksonMapper;
 
-    public Country getStubCountryResponse() {
+    public Map<String, Country> getStubVaccineContinentResponse() {
         try {
-            return mapper.parserFor(Country.class).read(STUBBED_FRANCE_CASES);
+            return jacksonMapper.readValue(STUBBED_VACCINED_CONTINENT_CASES, new TypeReference<Map<String, Country>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public CasesVaccined getStubVaccineResponse() {
+    public Map<String, Country> getStubContinentResponse() {
         try {
-            return mapper.parserFor(CasesVaccined.class).read(STUBBED_VACCINED_FRANCE_CASES);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Cases getStubContinentResponse() {
-        try {
-            return mapper.parserFor(Cases.class).read(STUBBED_EUROPE_CASES);
+            return jacksonMapper.readValue(STUBBED_EUROPE_CASES, new TypeReference<Map<String, Country>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
