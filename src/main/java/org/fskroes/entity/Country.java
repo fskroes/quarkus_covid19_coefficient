@@ -1,4 +1,4 @@
-package org.fskroes.model;
+package org.fskroes.entity;
 
 import io.quarkus.qson.QsonProperty;
 

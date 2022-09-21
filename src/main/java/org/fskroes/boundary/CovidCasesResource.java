@@ -3,8 +3,8 @@ package org.fskroes.boundary;
 import io.smallrye.common.constraint.NotNull;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.fskroes.client.CovidClient;
-import org.fskroes.model.Cases;
-import org.fskroes.model.Country;
+import org.fskroes.entity.Cases;
+import org.fskroes.entity.Country;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import javax.enterprise.context.ApplicationScoped;

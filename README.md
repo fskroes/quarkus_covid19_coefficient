@@ -1,6 +1,19 @@
 # covid-19-coefficient Project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project calculates the coefficient between death cases that are vaccinated of a given population.
+The source data of Covid-19 cases are https://github.com/M-Media-Group/Covid-19-API.
+
+## Endpoints
+Replace the inside of {} with your preference.
+```
+GET /vaccinated                         --> 
+GET /cases                              --> 
+GET /cases?country={France}             --> 
+GET /cases?continent={Europe|Affrica}   --> 
+GET /vaccines?country={France}          --> 
+GET /coefficient?country={France}       --> returns the calculated coefficient for a given country
+```
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 

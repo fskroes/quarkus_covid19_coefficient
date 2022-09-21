@@ -1365,7 +1365,7 @@ public class StubbedCases {
             "    \"France\": {\n" +
             "        \"All\": {\n" +
             "            \"confirmed\": 33884825,\n" +
-            "            \"recovered\": 0,\n" +
+            "            \"recovered\": 342253,\n" +
             "            \"deaths\": 151169,\n" +
             "            \"country\": \"France\",\n" +
             "            \"population\": 64979548,\n" +
@@ -3168,7 +3168,7 @@ public class StubbedCases {
     public static final String STUBBED_FRANCE_CASES = "{\n" +
             "    \"All\": {\n" +
             "        \"confirmed\": 33884825,\n" +
-            "        \"recovered\": 0,\n" +
+            "        \"recovered\": 342253,\n" +
             "        \"deaths\": 151169,\n" +
             "        \"country\": \"France\",\n" +
             "        \"population\": 64979548,\n" +

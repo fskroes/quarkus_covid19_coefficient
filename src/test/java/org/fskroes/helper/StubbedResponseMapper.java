@@ -1,9 +1,9 @@
 package org.fskroes.helper;
 
 import io.quarkus.qson.runtime.QuarkusQsonMapper;
-import org.fskroes.model.Cases;
-import org.fskroes.model.CasesVaccined;
-import org.fskroes.model.Country;
+import org.fskroes.entity.Cases;
+import org.fskroes.entity.CasesVaccined;
+import org.fskroes.entity.Country;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

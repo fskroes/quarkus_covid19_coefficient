@@ -1,8 +1,6 @@
-package org.fskroes.model;
+package org.fskroes.entity;
 
 import io.quarkus.qson.QsonProperty;
-
-import java.util.List;
 
 public class CasesVaccined {
 

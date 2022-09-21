@@ -1,31 +1,55 @@
 package org.fskroes.control;
 
-import org.fskroes.entity.CaseCoefficient;
-import org.fskroes.model.AllCountryInformation;
-import org.fskroes.model.Country;
+import org.fskroes.model.CaseCoefficient;
+import org.fskroes.entity.CasesVaccined;
+import org.fskroes.entity.Country;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class CoefficientCalculator {
 
-    public CaseCoefficient getCoefficientCalculator(Country country, AllCountryInformation vaccinedCasesForCountry) {
 
-        var deaths = country.getAll().getDeaths();
-        var population = country.getAll().getPopulation();
-        var confirmedVaccinated = vaccinedCasesForCountry.getVaccinated();
+    public CaseCoefficient getCoefficientCalculator(Country countryCase, CasesVaccined countryVaccineCase) {
+
+        var deaths = (long) countryCase.getAll().getDeaths();
+        var population = (long) countryCase.getAll().getPopulation();
+        var confirmedVaccinated = (long) countryVaccineCase.getAllCountryInformation().getVaccinated();
+        var recovered = (long) countryCase.getAll().getRecovered();
+        var confirmedCases = (long) countryCase.getAll().getConfirmed();
 
         var caseCoefficient = new CaseCoefficient();
-        caseCoefficient.setName(country.getAll().getCountry());
-        caseCoefficient.setCoefficient(calculateCoefficient(deaths, population, confirmedVaccinated));
+        caseCoefficient.setName(countryCase.getAll().getCountry());
+        caseCoefficient.setCoefficient(calculateCoefficient(
+                confirmedCases,
+                deaths,
+                population,
+                confirmedVaccinated,
+                recovered)
+        );
 
         return caseCoefficient;
     }
 
-    private double calculateCoefficient(int deaths, int population, int confirmedVaccinated) {
-        var percentageOfDeathOfPopulation = (deaths / population);
-        var percentageOfVaccinedPeopleOfPopulation = (confirmedVaccinated / population);
+    private double calculateCoefficient(long confirmedCases, long deaths, long population, long confirmedVaccinated, long recovered) {
 
-        return percentageOfDeathOfPopulation * percentageOfVaccinedPeopleOfPopulation / population;
+        var percentageDeathOfPop = (double) deaths / (population + deaths) * 100;
+        var percentageVaccinated = (double) confirmedVaccinated / population * 100;
+        var populationNotVaccinated = population - confirmedVaccinated;
+        var percentageOfPopulationRecovered = (double) recovered / population * 100;
+        var d = confirmedVaccinated - confirmedCases - recovered;
+
+        var coefficient_ratio = deaths / confirmedVaccinated;
+
+        // A standardized value is what you get when you take a data point and scale it by population data. It tells us how far from the mean we are in terms of standard deviations.
+        var mean = confirmedVaccinated + deaths + confirmedCases + recovered / population;
+        var standardizedDeath = mean - deaths / population;
+
+
+        var coefficient =
+                (percentageDeathOfPop * percentageVaccinated) *
+                (populationNotVaccinated * percentageOfPopulationRecovered) /
+                population;
+        return percentageDeathOfPop * percentageVaccinated / population;
     }
 }

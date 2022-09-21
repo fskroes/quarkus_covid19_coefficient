@@ -1,4 +1,4 @@
-package org.fskroes.entity;
+package org.fskroes.model;
 
 public class CaseCoefficient {
 
