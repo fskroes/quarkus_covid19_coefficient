@@ -47,6 +47,7 @@ public class CoefficientControl {
                 .deathList(allDeathsOfContinent)
                 .populationList(allPopulationOfContinent)
                 .vaccinatedList(allVaccinatedOfContinent)
+                .numberOfCountries(Math.max(allConfirmedOfContinent.size(), allVaccinatedOfContinent.size()))
                 .build();
 
         return coefficientCalculator.calculateCoefficient(calculationReport);
@@ -58,24 +59,4 @@ public class CoefficientControl {
                 .stream()
                 .map(Country::getAll);
     }
-
-//    private void keepIng() {
-//        var completeMap = givenContinentCase
-//                .values()
-//                .stream()
-//                .map(Country::getAll)
-//                .map(this::getContinentReport)
-//                .map(Map::values)
-//                .toList();
-//    }
-
-//    private Map<String, Long> getContinentReport(CountryReport countryReport) {
-//        Map<String, Long> report = new HashMap<>();
-//        report.put("confirmed", Long.valueOf(countryReport.getConfirmed()));
-//        report.put("recovered", Long.valueOf(countryReport.getRecovered()));
-//        report.put("deaths", Long.valueOf(countryReport.getDeaths()));
-//        report.put("population", Long.valueOf(countryReport.getPopulation()));
-//
-//        return report;
-//    }
 }

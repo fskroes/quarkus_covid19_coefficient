@@ -114,9 +114,8 @@ public class CovidClientTest {
                 .updated("2022-09-18 04:22:50")
                 .build();
 
-        var expectedCountry = new Country();
-        expectedCountry.setAll(expectedReport);
-
-        return expectedCountry;
+        var country = new Country();
+        country.setAll(expectedReport);
+        return country;
     }
 }

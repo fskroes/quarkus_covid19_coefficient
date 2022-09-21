@@ -34,17 +34,6 @@ public class CoefficientCalculator {
             List<Long> recoveredList,
             int sumOfCountries
     ) {
-
-//        var percentageDeathOfPop = (double) deaths / (population + deaths) * 100;
-//        var percentageVaccinated = (double) confirmedVaccinated / population * 100;
-//        var populationNotVaccinated = population - confirmedVaccinated;
-//        var percentageOfPopulationRecovered = (double) recovered / population * 100;
-//        var d = confirmedVaccinated - confirmedCases - recovered;
-//
-//        var coefficient_ratio = deaths / confirmedVaccinated;
-
-
-
         // sum
         var sumConfirmed = calculateSum(confirmedList);
         var sumDeaths = calculateSum(deathList);
@@ -82,18 +71,8 @@ public class CoefficientCalculator {
                 standardizedPopulation *
                 standardizedVaccinated *
                 standardizedRecovered;
-        var cc = correlationCoefficient / overallMean;
-        var cc2 = correlationCoefficient / sumPopulation;
-        var cc3 = correlationCoefficient / (sumOfCountries - 1);
 
-
-        return cc3;
-
-//        var coefficient =
-//                (percentageDeathOfPop * percentageVaccinated) *
-//                (populationNotVaccinated * percentageOfPopulationRecovered) /
-//                sumPopulation;
-//        return percentageDeathOfPop * percentageVaccinated / sumPopulation;
+        return correlationCoefficient / (sumOfCountries - 1);
     }
 
     private long calculateMean(long sum, int numberOfCountries) {

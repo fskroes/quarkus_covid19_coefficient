@@ -3,11 +3,9 @@ package org.fskroes.control;
 import io.quarkus.test.junit.QuarkusTest;
 import org.fskroes.model.CalculationReport;
 import org.fskroes.model.CaseCoefficient;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -4,6 +4,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.fskroes.client.CovidClient;
+import org.fskroes.control.CoefficientControl;
 import org.fskroes.helper.StubbedResponseMapper;
 import org.fskroes.model.CaseCoefficient;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,9 @@ public class CovidCoefficientResourceTest {
     @RestClient
     CovidClient covidClient;
 
+    @InjectMock
+    CoefficientControl coefficientControl;
+
     @Inject
     CovidCoefficientResource covidCoefficientResource;
 
@@ -38,7 +42,7 @@ public class CovidCoefficientResourceTest {
         var expectedCaseCoefficient = CaseCoefficient
                 .builder()
                 .name(CONTINENT)
-                .coefficient(0.0)
+                .coefficient(1.5366971809287894E25)
                 .build();
 
         var stubCountryResponse = stubbedResponseMapper
@@ -56,12 +60,16 @@ public class CovidCoefficientResourceTest {
                 .when(covidClient)
                 .getCasesVaccineForContinent(any());
 
+        doReturn(expectedCaseCoefficient)
+                .when(coefficientControl)
+                .getCoefficientForContinent(CONTINENT, stubCountryResponse, stubVaccineResponse);
 
         var response = covidCoefficientResource
                 .getCoefficientForContinent(CONTINENT);
 
 
         assertNotNull(response);
-        assertEquals(expectedCaseCoefficient.getCoefficient(), response.await().atMost(Duration.ofSeconds(5)).getCoefficient());
+        var awaitedResponse = response.await().atMost(Duration.ofSeconds(5)).getCoefficient();
+        assertEquals(expectedCaseCoefficient.getCoefficient(), awaitedResponse);
     }
 }
