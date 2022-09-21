@@ -35,9 +35,11 @@ public class CovidCoefficientResourceTest {
     @Test
     void getCoefficientForCountry_givenCountry_returnsCoefficientCalculationForCountry() {
 
-        CaseCoefficient expectedCaseCoefficient = new CaseCoefficient();
-        expectedCaseCoefficient.setName(CONTINENT);
-        expectedCaseCoefficient.setCoefficient(0.0);
+        var expectedCaseCoefficient = CaseCoefficient
+                .builder()
+                .name(CONTINENT)
+                .coefficient(0.0)
+                .build();
 
         var stubCountryResponse = stubbedResponseMapper
                 .getStubContinentResponse();

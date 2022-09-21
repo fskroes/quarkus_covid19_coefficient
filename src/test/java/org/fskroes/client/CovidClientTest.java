@@ -9,6 +9,7 @@ import org.fskroes.helper.StubbedResponseMapper;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,11 +44,7 @@ public class CovidClientTest {
                 .stream()
                 .toList();
 
-        var responseCountry = countries
-                .stream()
-                .filter(country -> country.getAll().getCountry().equals(expectedResult.get("All").getAll().getCountry()))
-                .findFirst()
-                .get();
+        var responseCountry = getMatchedCountry(countries, expectedResult.get("All"));
 
         assertNotNull(response);
         assertNotNull(expectedResult);
@@ -72,11 +69,7 @@ public class CovidClientTest {
                 .stream()
                 .toList();
 
-        var responseCountry = countries
-                .stream()
-                .filter(country -> country.getAll().getCountry().equals(expectedResult.get("All").getAll().getCountry()))
-                .findFirst()
-                .get();
+        var responseCountry = getMatchedCountry(countries, expectedResult.get("All"));
 
         assertNotNull(response);
         assertNotNull(expectedResult);
@@ -86,6 +79,14 @@ public class CovidClientTest {
         );
     }
 
+    private Country getMatchedCountry(List<Country> listOfCountriesToSearch, Country expectedCountry) {
+        return listOfCountriesToSearch
+                .stream()
+                .filter(country -> country.getAll().getCountry().equals(expectedCountry.getAll().getCountry()))
+                .findFirst()
+                .get();
+    }
+
     private Map<String, Country> getExpectedMappedJsonResult() {
         return Map.of(
                 "All", getStubCountry()
@@ -93,23 +94,25 @@ public class CovidClientTest {
     }
 
     private Country getStubCountry() {
-        var expectedReport = new CountryReport();
-        expectedReport.setConfirmed(33884825);
-        expectedReport.setRecovered(342253);
-        expectedReport.setDeaths(151169);
-        expectedReport.setCountry("France");
-        expectedReport.setPopulation(64979548);
-        expectedReport.setArea(551500);
-        expectedReport.setLifeExpectancy(78.8);
-        expectedReport.setElevation("375");
-        expectedReport.setContinent("Europe");
-        expectedReport.setAbbreviation("FR");
-        expectedReport.setLocation("Western Europe");
-        expectedReport.setIso(250);
-        expectedReport.setCapitalCity("Paris");
-        expectedReport.setLatitude(46.2276);
-        expectedReport.setLongitude(2.2137);
-        expectedReport.setUpdated("2022-09-18 04:22:50");
+        var expectedReport = CountryReport
+                .builder()
+                .confirmed(33884825)
+                .recovered(342253)
+                .deaths(151169)
+                .country("France")
+                .population(64979548)
+                .area(551500)
+                .lifeExpectancy(78.8)
+                .elevation("375")
+                .continent("Europe")
+                .abbreviation("FR")
+                .location("Western Europe")
+                .iso(250)
+                .capitalCity("Paris")
+                .latitude(46.2276)
+                .longitude(2.2137)
+                .updated("2022-09-18 04:22:50")
+                .build();
 
         var expectedCountry = new Country();
         expectedCountry.setAll(expectedReport);

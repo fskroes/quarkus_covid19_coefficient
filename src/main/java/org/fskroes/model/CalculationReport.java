@@ -3,15 +3,18 @@ package org.fskroes.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class CalculationReport {
 
     private String name;
-    private long sumConfirmed;
-    private long sumRecovered;
-    private long sumDeath;
-    private long sumPopulation;
-    private long vaccinated;
+    private List<Long> confirmedList;
+    private List<Long> recoveredList;
+    private List<Long> deathList;
+    private List<Long> populationList;
+    private List<Long> vaccinatedList;
+    private int numberOfCountries;
 
 }
