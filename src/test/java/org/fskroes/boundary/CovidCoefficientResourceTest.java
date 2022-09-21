@@ -20,7 +20,7 @@ import static org.mockito.Mockito.doReturn;
 @QuarkusTest
 public class CovidCoefficientResourceTest {
 
-    private static final String COUNTRY = "France";
+    private static final String CONTINENT = "Europe";
 
     @InjectMock
     @RestClient
@@ -36,7 +36,7 @@ public class CovidCoefficientResourceTest {
     void getCoefficientForCountry_givenCountry_returnsCoefficientCalculationForCountry() {
 
         CaseCoefficient expectedCaseCoefficient = new CaseCoefficient();
-        expectedCaseCoefficient.setCountryName(COUNTRY);
+        expectedCaseCoefficient.setName(CONTINENT);
         expectedCaseCoefficient.setCoefficient(0.0);
 
         var stubCountryResponse = stubbedResponseMapper
@@ -56,7 +56,7 @@ public class CovidCoefficientResourceTest {
 
 
         var response = covidCoefficientResource
-                .getCoefficientForContinent(COUNTRY);
+                .getCoefficientForContinent(CONTINENT);
 
 
         assertNotNull(response);

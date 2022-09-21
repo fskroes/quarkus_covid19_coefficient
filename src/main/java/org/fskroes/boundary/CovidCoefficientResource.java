@@ -35,7 +35,7 @@ public class CovidCoefficientResource {
         return Uni
                 .createFrom()
                 .item(coefficientControl
-                        .getCoefficient(givenCountryLiveCases, vaccineCasesForCountry)
+                        .getCoefficient(continent, givenCountryLiveCases, vaccineCasesForCountry)
                 );
     }
 }

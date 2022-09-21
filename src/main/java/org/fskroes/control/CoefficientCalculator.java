@@ -1,6 +1,7 @@
 package org.fskroes.control;
 
 import org.fskroes.entity.CountryReport;
+import org.fskroes.model.CalculationReport;
 import org.fskroes.model.CaseCoefficient;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -9,23 +10,23 @@ import javax.enterprise.context.ApplicationScoped;
 public class CoefficientCalculator {
 
 
-    public CaseCoefficient getCoefficientCalculator(CountryReport countryCase, CountryReport countryVaccineCase) {
+    public CaseCoefficient getCoefficientCalculator(CalculationReport calculationReport) {
 
-        var deaths = (long) countryCase.getDeaths();
-        var population = (long) countryCase.getPopulation();
-        var confirmedVaccinated = (long) countryVaccineCase.getVaccinated();
-        var recovered = (long) countryCase.getRecovered();
-        var confirmedCases = (long) countryCase.getConfirmed();
-
+//        var deaths = (long) countryCase.getDeaths();
+//        var population = (long) countryCase.getPopulation();
+//        var confirmedVaccinated = (long) countryVaccineCase.getVaccinated();
+//        var recovered = (long) countryCase.getRecovered();
+//        var confirmedCases = (long) countryCase.getConfirmed();
+//
         var caseCoefficient = new CaseCoefficient();
-        caseCoefficient.setCountryName(countryCase.getCountry());
-        caseCoefficient.setCoefficient(calculateCoefficient(
-                confirmedCases,
-                deaths,
-                population,
-                confirmedVaccinated,
-                recovered)
-        );
+//        caseCoefficient.setName(countryCase.getCountry());
+//        caseCoefficient.setCoefficient(calculateCoefficient(
+//                confirmedCases,
+//                deaths,
+//                population,
+//                confirmedVaccinated,
+//                recovered)
+//        );
 
         return caseCoefficient;
     }
