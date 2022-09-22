@@ -44,4 +44,31 @@ public class CoefficientCalculatorTest {
         assertNotNull(response);
         assertEquals(expectedResult, response);
     }
+
+    @Test
+    void calculateCoefficient_givenNullForListInCalculationReport_returnsNaNAsCoefficient() {
+
+        var calculationReport = CalculationReport
+                .builder()
+                .name(CONTINENT)
+                .confirmedList(null)
+                .recoveredList(List.of(123L, 3421L, 642L))
+                .deathList(List.of(76543L, 4312L, 556L))
+                .populationList(List.of(65432L, 76543L, 234421L))
+                .vaccinatedList(List.of(5432L, 1234L, 7654L))
+                .numberOfCountries(3)
+                .build();
+
+        var expectedResult = CaseCoefficient
+                .builder()
+                .name(CONTINENT)
+                .coefficient(Double.NaN)
+                .build();
+
+        var response =
+                coefficientCalculator.calculateCoefficient(calculationReport);
+
+        assertNotNull(response);
+        assertEquals(expectedResult, response);
+    }
 }

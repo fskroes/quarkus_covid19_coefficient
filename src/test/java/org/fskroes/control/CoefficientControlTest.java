@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
@@ -41,6 +43,30 @@ public class CoefficientControlTest {
                 CONTINENT,
                 stubbedResponseMapper.getStubContinentResponse(),
                 stubbedResponseMapper.getStubVaccineContinentResponse()
+        );
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(calculationReport, response);
+    }
+
+    @Test
+    void getCoefficientForAllCountries_givenValidParam_returnCoefficientForAllCountries() {
+        var calculationReport = CaseCoefficient
+                .builder()
+                .name(CONTINENT)
+                .coefficient(1.2678)
+                .build();
+
+        doReturn(calculationReport)
+                .when(coefficientCalculator)
+                .calculateCoefficient(any());
+
+        var response = coefficientControl.getCoefficientForAllCountries(
+                stubbedResponseMapper.getStubAllCountriesResponse(),
+                List.of(
+                        stubbedResponseMapper.getStubAllVaccineCaseResponse(),
+                        stubbedResponseMapper.getStubAllVaccineCaseResponse()
+                )
         );
 
         Assertions.assertNotNull(response);

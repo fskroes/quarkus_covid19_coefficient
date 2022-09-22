@@ -15,6 +15,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 
 
@@ -37,7 +38,7 @@ public class CovidCoefficientResourceTest {
     StubbedResponseMapper stubbedResponseMapper;
 
     @Test
-    void getCoefficientForCountry_givenCountry_returnsCoefficientCalculationForCountry() {
+    void getCoefficientForCountry_givenCorrectContinentParams_returnsCoefficientCalculationForCountry() {
 
         var expectedCaseCoefficient = CaseCoefficient
                 .builder()
@@ -67,6 +68,40 @@ public class CovidCoefficientResourceTest {
         var response = covidCoefficientResource
                 .getCoefficientForContinent(CONTINENT);
 
+
+        assertNotNull(response);
+        var awaitedResponse = response.await().atMost(Duration.ofSeconds(5)).getCoefficient();
+        assertEquals(expectedCaseCoefficient.getCoefficient(), awaitedResponse);
+    }
+
+    @Test
+    void getCoefficientForAllCountries_givenCorrectPath_returnCalculatedCoefficientForAllCountries() {
+        var expectedCaseCoefficient = CaseCoefficient
+                .builder()
+                .name(CONTINENT)
+                .coefficient(0.45678)
+                .build();
+
+        var stubAllCountriesResponse = stubbedResponseMapper
+                .getStubAllCountriesResponse();
+
+        var stubAllVaccinedResponse = stubbedResponseMapper
+                .getStubAllVaccineCaseResponse();
+
+        doReturn(stubAllCountriesResponse)
+                .when(covidClient)
+                .getAllLiveCases();
+
+        doReturn(stubAllVaccinedResponse)
+                .when(covidClient)
+                .getCasesVaccineForContinent(any());
+
+        doReturn(expectedCaseCoefficient)
+                .when(coefficientControl)
+                .getCoefficientForAllCountries(any(), anyList());
+
+        var response = covidCoefficientResource
+                .getCoefficientForAllCountries();
 
         assertNotNull(response);
         var awaitedResponse = response.await().atMost(Duration.ofSeconds(5)).getCoefficient();

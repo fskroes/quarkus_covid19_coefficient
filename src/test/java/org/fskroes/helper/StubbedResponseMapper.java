@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.fskroes.helper.StubbedCases.STUBBED_ALL_COUNTRIES;
 import static org.fskroes.helper.StubbedCases.STUBBED_EUROPE_CASES;
 import static org.fskroes.helper.StubbedVaccinedCases.STUBBED_VACCINED_CONTINENT_CASES;
 
@@ -29,6 +30,22 @@ public class StubbedResponseMapper {
     public Map<String, Country> getStubContinentResponse() {
         try {
             return jacksonMapper.readValue(STUBBED_EUROPE_CASES, new TypeReference<Map<String, Country>>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<String, Country> getStubAllVaccineCaseResponse() {
+        try {
+            return jacksonMapper.readValue(STUBBED_VACCINED_CONTINENT_CASES, new TypeReference<Map<String, Country>>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<String, Country> getStubAllCountriesResponse() {
+        try {
+            return jacksonMapper.readValue(STUBBED_ALL_COUNTRIES, new TypeReference<Map<String, Country>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

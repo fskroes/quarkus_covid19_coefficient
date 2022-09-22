@@ -14,6 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import static org.fskroes.helper.Continents.getContinents;
+
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 public class CovidCoefficientResource {
@@ -29,13 +31,27 @@ public class CovidCoefficientResource {
     @Path("/coefficient")
     public Uni<CaseCoefficient> getCoefficientForContinent(@QueryParam String continent) {
 
-        var givenCountryLiveCases = covidClient.getLiveCasesForContinent(continent);
-        var vaccineCasesForCountry = covidClient.getCasesVaccineForContinent(continent);
+        var liveCasesForContinent = covidClient.getLiveCasesForContinent(continent);
+        var vaccineCasesForContinent = covidClient.getCasesVaccineForContinent(continent);
 
         return Uni
                 .createFrom()
                 .item(coefficientControl
-                        .getCoefficientForContinent(continent, givenCountryLiveCases, vaccineCasesForCountry)
+                        .getCoefficientForContinent(continent, liveCasesForContinent, vaccineCasesForContinent)
                 );
+    }
+
+    @GET
+    @Path("coefficient/all")
+    public Uni<CaseCoefficient> getCoefficientForAllCountries() {
+        var allLiveCases = covidClient.getAllLiveCases();
+        var allVaccineCases = getContinents()
+                .stream()
+                .map(c -> covidClient.getCasesVaccineForContinent(c))
+                .toList();
+
+        return Uni
+                .createFrom()
+                .item(coefficientControl.getCoefficientForAllCountries(allLiveCases, allVaccineCases));
     }
 }

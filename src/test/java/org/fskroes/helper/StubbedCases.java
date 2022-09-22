@@ -2155,4 +2155,104 @@ public class StubbedCases {
             "    }\n" +
             "}";
 
+    public static final String STUBBED_ALL_COUNTRIES = "{\n" +
+            "    \"Cambodia\": {\n" +
+            "        \"All\": {\n" +
+            "            \"confirmed\": 137778,\n" +
+            "            \"recovered\": 0,\n" +
+            "            \"deaths\": 3056,\n" +
+            "            \"country\": \"Cambodia\",\n" +
+            "            \"population\": 16005373,\n" +
+            "            \"sq_km_area\": 181035,\n" +
+            "            \"life_expectancy\": \"56.5\",\n" +
+            "            \"elevation_in_meters\": 126,\n" +
+            "            \"continent\": \"Asia\",\n" +
+            "            \"abbreviation\": \"KH\",\n" +
+            "            \"location\": \"Southeast Asia\",\n" +
+            "            \"iso\": 116,\n" +
+            "            \"capital_city\": \"Phnom Penh\",\n" +
+            "            \"lat\": \"11.55\",\n" +
+            "            \"long\": \"104.9167\",\n" +
+            "            \"updated\": \"2022-09-21 04:23:22\"\n" +
+            "        }\n" +
+            "    },\n" +
+            "    \"Cameroon\": {\n" +
+            "        \"All\": {\n" +
+            "            \"confirmed\": 121652,\n" +
+            "            \"recovered\": 0,\n" +
+            "            \"deaths\": 1935,\n" +
+            "            \"country\": \"Cameroon\",\n" +
+            "            \"population\": 24053727,\n" +
+            "            \"sq_km_area\": 475442,\n" +
+            "            \"life_expectancy\": \"54.8\",\n" +
+            "            \"elevation_in_meters\": 667,\n" +
+            "            \"continent\": \"Africa\",\n" +
+            "            \"abbreviation\": \"CM\",\n" +
+            "            \"location\": \"Central Africa\",\n" +
+            "            \"iso\": 120,\n" +
+            "            \"capital_city\": \"Yaound\",\n" +
+            "            \"lat\": \"3.848\",\n" +
+            "            \"long\": \"11.5021\",\n" +
+            "            \"updated\": \"2022-09-21 04:23:22\"\n" +
+            "        }\n" +
+            "    },\n" +
+            "    \"Estonia\": {\n" +
+            "        \"All\": {\n" +
+            "            \"confirmed\": 600796,\n" +
+            "            \"recovered\": 0,\n" +
+            "            \"deaths\": 2667,\n" +
+            "            \"country\": \"Estonia\",\n" +
+            "            \"population\": 1309632,\n" +
+            "            \"sq_km_area\": 45227,\n" +
+            "            \"life_expectancy\": \"69.5\",\n" +
+            "            \"elevation_in_meters\": 61,\n" +
+            "            \"continent\": \"Europe\",\n" +
+            "            \"abbreviation\": \"EE\",\n" +
+            "            \"location\": \"Baltic Countries\",\n" +
+            "            \"iso\": 233,\n" +
+            "            \"capital_city\": \"Tallinn\",\n" +
+            "            \"lat\": \"58.5953\",\n" +
+            "            \"long\": \"25.0136\",\n" +
+            "            \"updated\": \"2022-09-21 04:23:22\"\n" +
+            "        }\n" +
+            "    },\n" +
+            "    \"Eswatini\": {\n" +
+            "        \"All\": {\n" +
+            "            \"confirmed\": 73379,\n" +
+            "            \"recovered\": 0,\n" +
+            "            \"deaths\": 1422,\n" +
+            "            \"lat\": \"-26.5225\",\n" +
+            "            \"long\": \"31.4659\",\n" +
+            "            \"updated\": \"2022-09-21 04:23:22\"\n" +
+            "        }\n" +
+            "    },\n" +
+            "    \"Ethiopia\": {\n" +
+            "        \"All\": {\n" +
+            "            \"confirmed\": 493461,\n" +
+            "            \"recovered\": 0,\n" +
+            "            \"deaths\": 7572,\n" +
+            "            \"country\": \"Ethiopia\",\n" +
+            "            \"population\": 104957438,\n" +
+            "            \"sq_km_area\": 1104300,\n" +
+            "            \"life_expectancy\": \"45.2\",\n" +
+            "            \"elevation_in_meters\": \"1,330\",\n" +
+            "            \"continent\": \"Africa\",\n" +
+            "            \"abbreviation\": \"ET\",\n" +
+            "            \"location\": \"Eastern Africa\",\n" +
+            "            \"iso\": 231,\n" +
+            "            \"capital_city\": \"Addis Abeba\",\n" +
+            "            \"lat\": \"9.145\",\n" +
+            "            \"long\": \"40.4897\",\n" +
+            "            \"updated\": \"2022-09-21 04:23:22\"\n" +
+            "        }\n" +
+            "    },\n" +
+            "    \"Global\": {\n" +
+            "        \"All\": {\n" +
+            "            \"population\": 7444509223,\n" +
+            "            \"confirmed\": 612948165,\n" +
+            "            \"recovered\": 0,\n" +
+            "            \"deaths\": 6529595\n" +
+            "        }\n" +
+            "    }\n" +
+            "}";
 }

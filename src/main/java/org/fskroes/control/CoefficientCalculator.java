@@ -6,10 +6,20 @@ import org.fskroes.model.CaseCoefficient;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @ApplicationScoped
 public class CoefficientCalculator {
 
     public CaseCoefficient calculateCoefficient(CalculationReport calculationReport) {
+        if (!isReportValid(calculationReport)) {
+            return CaseCoefficient
+                    .builder()
+                    .name(calculationReport.getName())
+                    .coefficient(Double.NaN)
+                    .build();
+        }
+
         var calc = calc(
                 calculationReport.getConfirmedList(),
                 calculationReport.getDeathList(),
@@ -102,5 +112,13 @@ public class CoefficientCalculator {
 
     private long calculateSum(List<Long> values) {
         return values.stream().mapToLong(Long::longValue).sum();
+    }
+
+    private boolean isReportValid(CalculationReport calculationReport) {
+        if (isNull(calculationReport.getRecoveredList())) return false;
+        else if (isNull(calculationReport.getConfirmedList())) return false;
+        else if (isNull(calculationReport.getVaccinatedList())) return false;
+        else if (isNull(calculationReport.getPopulationList())) return false;
+        else return !isNull(calculationReport.getDeathList());
     }
 }

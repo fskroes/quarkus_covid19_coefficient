@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 
@@ -45,12 +47,13 @@ public class CovidClientTest {
                 .toList();
 
         var responseCountry = getMatchedCountry(countries, expectedResult.get("All"));
+        assertTrue(responseCountry.isPresent());
 
         assertNotNull(response);
         assertNotNull(expectedResult);
         assertEquals(
                 expectedResult.get("All").getAll().getCountry(),
-                responseCountry.getAll().getCountry()
+                responseCountry.get().getAll().getCountry()
         );
     }
 
@@ -70,21 +73,33 @@ public class CovidClientTest {
                 .toList();
 
         var responseCountry = getMatchedCountry(countries, expectedResult.get("All"));
+        assertTrue(responseCountry.isPresent());
 
         assertNotNull(response);
         assertNotNull(expectedResult);
         assertEquals(
                 expectedResult.get("All").getAll().getCountry(),
-                responseCountry.getAll().getCountry()
+                responseCountry.get().getAll().getCountry()
         );
     }
 
-    private Country getMatchedCountry(List<Country> listOfCountriesToSearch, Country expectedCountry) {
+    @Test
+    void getAllLiveCases_correctParams_returnsAllCases() {
+        doReturn(stubbedResponseMapper.getStubAllCountriesResponse())
+                .when(covidClient)
+                .getAllLiveCases();
+
+        var response = covidClient.getAllLiveCases();
+
+        assertNotNull(response);
+        assertTrue(response.values().size() > 1);
+    }
+
+    private Optional<Country> getMatchedCountry(List<Country> listOfCountriesToSearch, Country expectedCountry) {
         return listOfCountriesToSearch
                 .stream()
                 .filter(country -> country.getAll().getCountry().equals(expectedCountry.getAll().getCountry()))
-                .findFirst()
-                .get();
+                .findFirst();
     }
 
     private Map<String, Country> getExpectedMappedJsonResult() {

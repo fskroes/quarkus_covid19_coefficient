@@ -23,4 +23,8 @@ public interface CovidClient {
     @GET
     @Path("/vaccines")
     Map<String, Country> getCasesVaccineForContinent(@QueryParam String continent);
+
+    @GET
+    @Path("/cases")
+    Map<String, Country> getAllLiveCases();
 }
