@@ -7,11 +7,17 @@ The source data of Covid-19 cases are https://github.com/M-Media-Group/Covid-19-
 ## Endpoints
 Replace the inside of {} with your preference.
 ``` 
-GET /coefficient?country={France}       --> returns the calculated coefficient for a given country
+GET /coefficient/all                      --> returns the calculated coefficient for all countries
 GET /coefficient?continent={Europe}       --> returns the calculated coefficient for a given continent
 ```
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Note this application gives an estimate on a calculated coefficient between 
+the people that died from Covid-19 and got vaccinated. But given the data source
+is getting more and more outdated, the ratio of it is as well. The people that died and got vaccinated is not available.
+
+
+
+
 
 ## Running the application in dev mode
 
